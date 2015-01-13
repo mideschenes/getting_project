@@ -27,7 +27,7 @@ The directory includes :
  - **run_analysis.R** : R script file that get data, merge them, extract the data that interest us (mean et standard deviation) and create tidy dataset.
  - **readme.md** : this file! The markdown file which explains how to run run_analysis.R.
  - **codebook.md** : The markdown file that describes the variables, the data, and the transformations performed to clean up the data in run_analysis.R.
- - **UCI HAR Dataset** : The data directory that includes
+ - **UCI HAR Dataset** : The data directory that includes (the two Inertial signals directory aren't used by run\_analysis.R)
    - train and test data, each one in a separate directory, the raw data including[^inertial] :
      - the subjects id (subject\_test.txt) 
      - the activities id (y\_test.txt and y\_train.txt) 
@@ -46,6 +46,3 @@ How to run the script
     capture)***
  2. Open R, set the working directory and run : *source("run_analysis.R")*
  3. See the tidy dataset in main directory (tidy.txt) !
-
-
- [^inertial]: The two Inertial signals directory aren't used by run\_analysis.R.
