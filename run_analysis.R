@@ -58,13 +58,6 @@ activities <- read.table("UCI HAR Dataset/activity_labels.txt")
 mean_std$Activity <- activities[mean_std$Activity,2]
 
 
-
-
-print(names(mean_std))
-
-
-
-
 ###############################################################################
 ## 4. Appropriately labels the data set with descriptive variable names      ##
 ###############################################################################
