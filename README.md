@@ -42,7 +42,6 @@ The raw data can be [downloaded](https://d396qusza40orc.cloudfront.net/getdata/p
 How to run the script
 -------------
  1. Make sure you have downloaded every files mentioned in files
-    section, keeping the structure of the main directory : ***(ajouter la
-    capture)***
+    section, keeping the structure of the main directory : ![Image of structure](http://mdeschenes.com/dev/img/getting_project_structure.png)
  2. Open R, set the working directory and run : *source("run_analysis.R")*
  3. See the tidy dataset in main directory (tidy.txt) !
