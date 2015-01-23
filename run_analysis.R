@@ -17,16 +17,16 @@
 ###############################################################################
 
 ## Load train datas and merge them in one dataset
-train_subjectsid <- read.table("UCI HAR Dataset/train/subject_train.txt")
-train_activitiesid <- read.table("UCI HAR Dataset/train/y_train.txt")
-train_data <- read.table("UCI HAR Dataset/train/X_train.txt")
-train <- cbind(cbind(train_subjectsid, train_activitiesid), train_data)
+trainSubjectsId <- read.table("UCI HAR Dataset/train/subject_train.txt")
+trainActivitiesId <- read.table("UCI HAR Dataset/train/y_train.txt")
+trainData <- read.table("UCI HAR Dataset/train/X_train.txt")
+train <- cbind(cbind(trainSubjectsId, trainActivitiesId), trainData)
 
 ## Load test datas and merge them in one dataset
-test_subjectsid <- read.table("UCI HAR Dataset/test/subject_test.txt")
-test_activitiesid <- read.table("UCI HAR Dataset/test/y_test.txt")
-test_data <- read.table("UCI HAR Dataset/test/X_test.txt")
-test <- cbind(cbind(test_subjectsid, test_activitiesid), test_data)
+testSubjectsId <- read.table("UCI HAR Dataset/test/subject_test.txt")
+testActivitiesId <- read.table("UCI HAR Dataset/test/y_test.txt")
+testData <- read.table("UCI HAR Dataset/test/X_test.txt")
+test <- cbind(cbind(testSubjectsId, testActivitiesId), testData)
 
 ## Merge train dataset and test dataset together
 all <- rbind(train, test)
@@ -42,9 +42,9 @@ labels <- read.table("UCI HAR Dataset/features.txt")
 names(all) <- c("Subject", "Activity", as.character(labels$V2))
 
 ## Extract the columns : Subject, Activity, anything including mean() and std()
-mean_std <- all[, grep("Subject|Activity|mean\\(\\)|std\\(\\)", 
+meanStd <- all[, grep("Subject|Activity|mean\\(\\)|std\\(\\)", 
                         names(all), 
-                        value=TRUE)]
+                        value = TRUE)]
 
 
 ###############################################################################
@@ -55,7 +55,7 @@ mean_std <- all[, grep("Subject|Activity|mean\\(\\)|std\\(\\)",
 activities <- read.table("UCI HAR Dataset/activity_labels.txt")
 
 ## Replace the id of the activities by their label
-mean_std$Activity <- activities[mean_std$Activity,2]
+meanStd$Activity <- activities[meanStd$Activity, 2]
 
 
 ###############################################################################
@@ -63,26 +63,26 @@ mean_std$Activity <- activities[mean_std$Activity,2]
 ###############################################################################
 
 ## Remove parentheses and dash
-names(mean_std) <- gsub('\\(|\\)|-', "", names(mean_std))
+names(meanStd) <- gsub('\\(|\\)|-', "", names(meanStd))
 
 ## Replace the "t" at begining by TimeDomainSignal
-names(mean_std) <- gsub('^t', "TimeDomainSignal_", names(mean_std))
+names(meanStd) <- gsub('^t', "TimeDomainSignal_", names(meanStd))
 
 ## Replace the "F" at begining by FrequencyDomainSignal
-names(mean_std) <- gsub('^f', "FrequencyDomainSignal_", names(mean_std))
+names(meanStd) <- gsub('^f', "FrequencyDomainSignal_", names(meanStd))
 
 ## Capitalize the words mean and std
-names(mean_std) <- gsub('mean', "Mean", names(mean_std))
-names(mean_std) <- gsub('std', "Std", names(mean_std))
+names(meanStd) <- gsub('mean', "Mean", names(meanStd))
+names(meanStd) <- gsub('std', "Std", names(meanStd))
 
 ## Elaborate names
-names(mean_std) <- gsub('Acc', "Acceleration_", names(mean_std))
-names(mean_std) <- gsub('GyroJerk', "AngularAcceleration_", names(mean_std))
-names(mean_std) <- gsub('Gyro', "AngularSpeed_", names(mean_std))
-names(mean_std) <- gsub('Mag', "Magnitude_", names(mean_std))
+names(meanStd) <- gsub('Acc', "Acceleration_", names(meanStd))
+names(meanStd) <- gsub('GyroJerk', "AngularAcceleration_", names(meanStd))
+names(meanStd) <- gsub('Gyro', "AngularSpeed_", names(meanStd))
+names(meanStd) <- gsub('Mag', "Magnitude_", names(meanStd))
 
 ## Remove "Body" repetition
-names(mean_std) <- gsub('BodyBody', "Body", names(mean_std))
+names(meanStd) <- gsub('BodyBody', "Body", names(meanStd))
 
 
 ###############################################################################
@@ -95,7 +95,7 @@ names(mean_std) <- gsub('BodyBody', "Body", names(mean_std))
 library(plyr)
 
 ## Calculate the average
-avg_act_sub <-  ddply(mean_std, c("Subject","Activity"), numcolwise(mean))
+avgActSub <-  ddply(meanStd, c("Subject", "Activity"), numcolwise(mean))
 
 ## Write the dataset in a file named tidy.txt
-write.table(avg_act_sub, row.name=FALSE, file = "tidy.txt") 
+write.table(avgActSub, row.name = FALSE, file = "tidy.txt") 
